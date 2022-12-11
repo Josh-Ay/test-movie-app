@@ -9,10 +9,23 @@
     cursor: pointer;
     transition: 0.3s ease-in-out;
     display: inline-block;
+    position: relative;
 }
 
 .movie__Tile__Container:hover {
-    filter: brightness(0.7);
+    /* filter: brightness(0.5); */
+    backdrop-filter: blur(20px);
+}
+
+.movie__Overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(10px);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border-radius: 12px;
 }
 
 .movie__Tile__Container .movie__Details {
@@ -22,6 +35,8 @@
     width: 100%;
     height: 100%;
     padding: 0 5%;
+    z-index: 2;
+    position: relative;
 }
 
 .movie__Tile__Container .movie__Details p {

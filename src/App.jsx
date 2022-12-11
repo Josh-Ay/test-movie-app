@@ -14,14 +14,15 @@ function App() {
   const [ isLoading, setLoading ] = useState(false);
 
   useEffect(() => {
-    if (searchValue.length < 1) return setSearchResults([]);
+    if (searchValue.length < 1) return setSearchResults(null);
 
     setLoading(true);
 
     searchForMovie(searchValue).then(res => {
       console.log(res)
-      setSearchResults(res.data);
       setLoading(false);
+      if (res.data.Error) return setSearchResults(null);
+      setSearchResults(res.data);
     }).catch(err => {
       console.log(err.response ? err.response.data : err.message);
       setLoading(false);
@@ -44,7 +45,7 @@ function App() {
           {
             isLoading ? <p className='movie__Category'>Please wait...</p> :
             searchValue.length < 1 ? <p className='movie__Category'>Please type above to search.</p> :
-            searchValue.length > 1 && !searchResults ? <p className='movie__Category'>No movies found</p> :
+            !searchResults ? <p className='movie__Category'>No movies found</p> :
             <>
               <p className='movie__Category'>{searchResults.Genre}</p>
               <div className='movies__Container'>
